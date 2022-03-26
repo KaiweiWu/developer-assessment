@@ -5,6 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using TodoList.Api.Repositories;
+using TodoList.Api.RepositoryInterfaces;
+using TodoList.Api.ServiceInterfaces;
+using TodoList.Api.Services;
 
 namespace TodoList.Api
 {
@@ -30,7 +34,8 @@ namespace TodoList.Api
                                  .AllowAnyMethod();
                       });
             });
-
+            services.AddScoped<ITodoItemRepository, TodoItemRepository>();
+            services.AddScoped<ITodoItemService, TodoItemService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
