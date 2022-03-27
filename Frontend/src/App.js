@@ -1,6 +1,7 @@
 import './App.css'
 import { Image, Alert, Button, Container, Row, Col, Form, Table, Stack } from 'react-bootstrap'
 import React, { useState, useEffect } from 'react'
+import Item from './components/Item'
 
 const axios = require('axios')
 
@@ -9,7 +10,7 @@ const App = () => {
   const [items, setItems] = useState([])
 
   useEffect(() => {
-    // todo
+    getItems();
   }, [])
 
   const renderAddTodoItemContent = () => {
@@ -63,15 +64,7 @@ const App = () => {
           </thead>
           <tbody>
             {items.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.description}</td>
-                <td>
-                  <Button variant="warning" size="sm" onClick={() => handleMarkAsComplete(item)}>
-                    Mark as completed
-                  </Button>
-                </td>
-              </tr>
+              <Item key={item.id} item={item}/>
             ))}
           </tbody>
         </Table>
@@ -80,35 +73,34 @@ const App = () => {
   }
 
   const handleDescriptionChange = (event) => {
-    // todo
+    setDescription(event.target.value);
   }
-
+  
   async function getItems() {
-    try {
-      alert('todo')
-    } catch (error) {
-      console.error(error)
-    }
+    axios.get('https://localhost:44397/api/todoitems')
+    .then(response => {
+      setItems(response.data);
+    })
   }
 
   async function handleAdd() {
-    try {
-      alert('todo')
-    } catch (error) {
-      console.error(error)
-    }
+    const newItemDescription = { description: description };
+    
+    axios.post('https://localhost:44397/api/todoitems', newItemDescription)
+    .then(async response => {
+      var data = response.data;
+
+      if (data.error) {
+        alert(data.message);
+      } else {
+        setItems(items.concat(data));
+        handleClear();
+      }
+    })
   }
 
   function handleClear() {
     setDescription('')
-  }
-
-  async function handleMarkAsComplete(item) {
-    try {
-      alert('todo')
-    } catch (error) {
-      console.error(error)
-    }
   }
 
   return (
