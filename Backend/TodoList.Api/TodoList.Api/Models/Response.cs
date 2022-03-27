@@ -2,13 +2,14 @@
 {
     public class Response
     {
-        public Response(bool success = true, string message = "Success")
+        public Response(string message, bool error = false)
         {
-            Success = success;
             Message = message;
+            Error = error;
         }
 
-        public bool Success { get; set; }
         public string Message { get; set; }
+        public bool Error { get; set; }
+        
     }
 }

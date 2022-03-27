@@ -6,12 +6,12 @@ namespace TodoList.Api.Models
     {
         public TodoItemViewModel(TodoItem item)
         {
-            Guid = item.Id;
+            Id = item.Id;
             Description = item.Description;
             IsCompleted = item.IsCompleted;
         }
 
-        public Guid Guid { get; set; }
+        public Guid Id { get; set; }
 
         public string Description { get; set; }
 

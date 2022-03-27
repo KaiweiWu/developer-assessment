@@ -29,7 +29,7 @@ namespace TodoList.Api.UnitTests
             // Act
             var result = await todoItemService.InsertTodoItem(testItem);
 
-            Assert.True(result.Success);
+            Assert.True(result.Error == false);
         }
 
         [Fact]
@@ -45,7 +45,7 @@ namespace TodoList.Api.UnitTests
             // Act
             var result = await todoItemService.UpdateTodoItem(testItem);
 
-            Assert.True(result.Success);
+            Assert.True(result.Error == false);
         }
 
         [Fact]

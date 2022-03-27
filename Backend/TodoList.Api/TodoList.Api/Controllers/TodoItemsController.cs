@@ -33,14 +33,14 @@ namespace TodoList.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTodoItem(Guid id)
         {
-            var result = await _todoItemService.GetTodoItemByID(id);
+            var response = await _todoItemService.GetTodoItemByID(id);
 
-            if (result == null)
+            if (response == null)
             {
                 return NotFound();
             }
 
-            return Ok(result);
+            return Ok(response);
         }
 
         // PUT: api/TodoItems/... 
@@ -54,8 +54,8 @@ namespace TodoList.Api.Controllers
 
             var response = await _todoItemService.UpdateTodoItem(todoItem);
 
-            if (!response.Success)
-                return NotFound(response.Message);
+            if (response.Error)
+                return Ok(response);
 
             return NoContent();
         }
@@ -66,8 +66,8 @@ namespace TodoList.Api.Controllers
         {
             var response = await _todoItemService.InsertTodoItem(todoItem);
 
-            if (!response.Success)
-                return BadRequest(response.Message);
+            if (response.Error)
+                return Ok(response);
 
             return CreatedAtAction(nameof(GetTodoItem), new { id = todoItem.Id }, todoItem);
         } 

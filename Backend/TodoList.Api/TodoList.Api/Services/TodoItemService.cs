@@ -36,19 +36,19 @@ namespace TodoList.Api.Services
         {
             if (string.IsNullOrEmpty(item?.Description))
             {
-                return new Response(false, "Description is required");
+                return new Response("Description is required", true);
             }
             else if (_todoItemRepository.TodoItemDescriptionExists(item.Description))
             {
-                return new Response(false, "Description already exists");
+                return new Response("Description already exists", true);
             }
 
             var success = await _todoItemRepository.InsertTodoItem(item);
 
             if (!success)
-                return new Response(false, "Failed to add to do item");
+                return new Response("Failed to add to do item", true);
 
-            return new Response();
+            return new Response("Success");
         }
 
         public async Task<Response> UpdateTodoItem(TodoItem item)
@@ -56,9 +56,9 @@ namespace TodoList.Api.Services
             var success = await _todoItemRepository.UpdateTodoItem(item);
 
             if (!success)
-                return new Response(false, "Failed to update to do item");
+                return new Response("Failed to update to do item", true);
 
-            return new Response();
+            return new Response("Success");
         }
     }
 }
