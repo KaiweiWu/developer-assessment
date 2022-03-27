@@ -24,23 +24,23 @@ namespace TodoList.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTodoItems()
         {
-            var results = await _todoItemService.GetTodoItemList();
+            var itemList = await _todoItemService.GetTodoItemList();
 
-            return Ok(results);
+            return Ok(itemList);
         }
 
         // GET: api/TodoItems/...
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTodoItem(Guid id)
         {
-            var response = await _todoItemService.GetTodoItemByID(id);
+            var item = await _todoItemService.GetTodoItemByID(id);
 
-            if (response == null)
+            if (item == null)
             {
                 return NotFound();
             }
 
-            return Ok(response);
+            return Ok(item);
         }
 
         // PUT: api/TodoItems/... 

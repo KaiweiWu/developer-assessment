@@ -11,7 +11,16 @@ const Item = ({item}) => {
 
         axios.put('https://localhost:44397/api/todoitems/' + item.id, item)
         .then(response => {
-            setCompleted(true); 
+            var data = response.data;
+            
+            if (data.error) {
+                alert(data.message);
+            } else {
+                setCompleted(true); 
+            }
+        })
+        .catch(error => {
+            console.error(error);
         });
     }
 

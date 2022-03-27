@@ -94,15 +94,9 @@ const App = () => {
         alert(data.message);
       } else {
         setItems(items.concat(data));
+        handleClear();
       }
     })
-    .catch(error => {
-      if (error.response) {
-        alert(error.response.data);
-      } else {
-        console.error(error);
-      }
-    });
   }
 
   function handleClear() {
